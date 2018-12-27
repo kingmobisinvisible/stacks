@@ -1,0 +1,111 @@
+version: '3'
+services:
+# MEDIA AUTOMATION
+    sonarr:
+        env_file:
+            - '/changan/docker/changan.env'
+        image: linuxserver/sonarr
+        user: root
+        ports:
+            - '9310:8989'
+        volumes:
+            - '${CONFIG}/sonarr/:/config'
+            - '${DOWNLOADS}/:/downloads'
+            - '${MEDIA}/TV/:/tv'
+        environment:
+            TZ: ${TZ}
+            PUID: 0
+    radarr:
+        env_file:
+            - '/changan/docker/changan.env'
+        image: linuxserver/radarr
+        user: root
+        ports:
+            - '9311:7878'
+        volumes:
+            - '${CONFIG}/radarr/:/config'
+            - '${DOWNLOADS}/:/downloads'
+            - '${MEDIA}/Movies/:/movies'
+        environment:
+            TZ: ${TZ}
+            PUID: 0
+    lidarr:
+        env_file:
+            - '/changan/docker/changan.env'
+        image: linuxserver/lidarr
+        user: root
+        ports:
+            - '9312:8686'
+        volumes:
+            - '${CONFIG}/lidarr/:/config'
+            - '${DOWNLOADS}/:/downloads'
+            - '${MEDIA}/Music/:/music'
+        environment:
+            TZ: ${TZ}
+            PUID: 0
+    lazylibrarian:
+        env_file:
+            - '/changan/docker/changan.env'
+        image: linuxserver/lazylibrarian
+        user: root
+        ports:
+            - '9313:5299'
+        volumes:
+            - '${CONFIG}/lazylibrarian/:/config'
+            - '${DOWNLOADS}/:/downloads'
+            - '${MEDIA}/Books/:/books'
+            - '${MEDIA}/Audiobooks/:/audiobooks'
+        environment:
+            TZ: ${TZ}
+            PUID: 0
+# DOWNLOAD CLIENTS
+    nzbget:
+        env_file:
+            - '/changan/docker/changan.env'
+        image: linuxserver/nzbget
+        user: root
+        ports:
+            - '9320:6789'
+        volumes:
+            - '${CONFIG}/nzbget/:/config'
+            - '${DOWNLOADS}/:/downloads'
+        environment:
+            TZ: ${TZ}
+            PUID: 0
+# INDEXERS
+    hydra2:
+        env_file:
+            - '/changan/docker/changan.env'
+        image: linuxserver/hydra2
+        user: root
+        ports:
+            - '9330:5076'
+        volumes:
+            - '${CONFIG}/hydra2/:/config'
+            - '${DOWNLOADS}/:/downloads'
+        environment:
+            TZ: ${TZ}
+    jackett:
+        env_file:
+            - '/changan/docker/changan.env'
+        image: linuxserver/jackett
+        user: root
+        ports:
+            - '9331:9117'
+        volumes:
+            - '${CONFIG}/jackett/:/config'
+            - '${DOWNLOADS}/:/downloads'
+        environment:
+            TZ: ${TZ}
+    jackettP:
+        env_file:
+            - '/changan/docker/changan.env'
+        image: linuxserver/jackett
+        user: root
+        ports:
+            - '9332:9117'
+        volumes:
+            - '${CONFIG}/jackettp/:/config'
+            - '${DOWNLOADS}/:/downloads'
+        environment:
+            TZ: ${TZ}

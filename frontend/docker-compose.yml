@@ -1,0 +1,44 @@
+version: '3'
+services:
+    ddclient:
+        env_file:
+            - '/changan/docker/changan.env'
+        image: linuxserver/ddclient
+        user: root
+        volumes:
+            - '${CONFIG}/ddclient/:/config'
+        environment:
+            TZ: ${TZ}
+    nginx-proxy:
+        env_file:
+            - '/changan/docker/changan.env'
+        image: jwilder/nginx-proxy
+        ports:
+            - "80:80"
+        volumes:
+            - /var/run/docker.sock:/tmp/docker.sock:ro
+        environment:
+            TZ: ${TZ}
+    heimdall:
+        env_file:
+            - '/changan/docker/changan.env'
+        image: linuxserver/heimdall
+        user: root
+        ports:
+            - '81:80'
+            - '444:443'
+        volumes:
+            - '${CONFIG}/heimdall/:/config'
+        environment:
+            TZ: ${TZ}
+            VIRTUAL_HOST: WWW.${DOMAIN}
+            VIRTUAL_PORT: 81
+    wordpress:
+        env_file:
+            - '/changan/docker/changan.env'
+        image: wordpress
+        user: root
+        ports:
+            - '9344:80'
+        environment:
+            TZ: ${TZ}

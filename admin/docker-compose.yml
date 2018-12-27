@@ -1,0 +1,76 @@
+version: '3'
+services:
+    portainer:
+        env_file:
+            - '/changan/docker/changan.env'
+        image: portainer/portainer
+        ports:
+            - '9300:9000'
+        volumes:
+            - '/var/run/docker.sock:/var/run/docker.sock'
+            - '${CONFIG}/portainer/:/data'
+        environment:
+            TZ: ${TZ}
+    organizr:
+        env_file:
+            - '/changan/docker/changan.env'
+        image: lsiocommunity/organizr
+        user: root
+        ports:
+            - '9301:80'
+        volumes:
+            - '${CONFIG}/organizr/:/config'
+        environment:
+            TZ: ${TZ}
+    organizr2:
+        env_file:
+            - '/changan/docker/changan.env'
+        image: lsiocommunity/organizr
+        user: root
+        ports:
+            - '9302:80'
+        volumes:
+            - '${CONFIG}/organizr2/:/config'
+        environment:
+            TZ: ${TZ}
+    organizr3:
+        env_file:
+            - '/changan/docker/changan.env'
+        image: lsiocommunity/organizr
+        user: root
+        ports:
+            - '9303:80'
+        volumes:
+            - '${CONFIG}/organizr3/:/config'
+        environment:
+            TZ: ${TZ}
+    organizr4:
+        env_file:
+            - '/changan/docker/changan.env'
+        image: lsiocommunity/organizr
+        user: root
+        ports:
+            - '9304:80'
+        volumes:
+            - '${CONFIG}/organizr4/:/config'
+        environment:
+            TZ: ${TZ}
+    organizr5:
+        env_file:
+            - '/changan/docker/changan.env'
+        image: lsiocommunity/organizr
+        user: root
+        ports:
+            - '9305:80'
+        volumes:
+            - '${CONFIG}/organizr5/:/config'
+        environment:
+            TZ: ${TZ}
+    watchtower:
+        env_file:
+            - '/changan/docker/changan.env'
+        image: v2tec/watchtower
+        volumes:
+            - '/var/run/docker.sock:/var/run/docker.sock'
+        environment:
+            TZ: ${TZ}

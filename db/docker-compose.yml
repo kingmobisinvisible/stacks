@@ -1,0 +1,25 @@
+version: '3'
+services:
+    mariadb:
+        env_file:
+            - '/changan/docker/changan.env'
+        image: linuxserver/mariadb
+        user: root
+        ports:
+            - '3306:3306'
+        volumes:
+            - '${CONFIG}/mariadb/:/config'
+        environment:
+            TZ: ${TZ}
+            MYSQL_ROOT_PASSWORD: ${DBROOT}
+    phpmyadmin:
+        env_file:
+            - '/changan/docker/changan.env'
+        image: phpmyadmin/phpmyadmin
+        user: root
+        ports:
+            - '9350:80'
+        environment:
+            TZ: ${TZ}
+            PMA_HOST: mariadb
+            MYSQL_ROOT_PASSWORD: ${DBROOT}

@@ -1,0 +1,49 @@
+version: '3'
+services:
+    transmission:
+        env_file:
+            - '/changan/docker/changan.env'
+        image: haugene/transmission-openvpn
+        user: root
+        hostname: transmission
+        cap_add:
+            - NET_ADMIN
+        devices:
+            - /dev/net/tun
+        ports:
+            - "9321:9091"
+            - "8888:8888"
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+        volumes:
+            - '${CONFIG}/transmission/:/config'
+            - '${DOWNLOADS}/:/data'
+            - '/etc/localtime:/etc/localtime:ro'
+        environment:
+            - OPENVPN_PROVIDER=PIA
+            - OPENVPN_USERNAME=p3442358
+            - OPENVPN_PASSWORD=Reznor666
+            - OPENVPN_CONFIG=US Las Vegas
+            - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
+            - LOCAL_NETWORK=192.168.0.0/16
+            - TZ=${TZ}
+            - PUID=0
+            - VIRTUAL_HOST=tm.${DOMAIN}
+    plex:
+        env_file:
+            - '/changan/docker/changan.env'
+        image: linuxserver/plex
+        user: root
+        network_mode: "host"
+        volumes:
+            - '${CONFIG}/plex/:/config'
+            - '${DOWNLOADS}/:/downloads'
+            - '${MEDIA}/Movies/:/movies'
+            - '${MEDIA}/TV/:/tv'
+            - '${MEDIA}/Music/:/music'
+            - '${MEDIA}/Books/:/books'
+            - '${MEDIA}/Comics/:/comics'
+        environment:
+            TZ: ${TZ}
+            VERSION: latest

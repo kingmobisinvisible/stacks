@@ -1,0 +1,28 @@
+version: '3'
+services:
+    calibre:
+        env_file:
+            - '/changan/docker/changan.env'
+        image: linuxserver/calibre-web
+        user: root
+        ports:
+            - '9342:8083'
+        volumes:
+            - '${CONFIG}/calibre/:/config'
+            - '${DOWNLOADS}/calibre-web/:/downloads'
+            - '${MEDIA}/Books/:/books'
+        environment:
+            TZ: ${TZ}
+    kodi:
+        env_file:
+            - '/changan/docker/changan.env'
+        image: linuxserver/kodi-headless
+        user: root
+        ports:
+            - '9380:8080'
+            - '9390:9090'
+            - '9777:9777/udp'
+        volumes:
+            - '${CONFIG}/kodi/:/config/.kodi'
+        environment:
+            TZ: ${TZ}
