@@ -1,3 +1,4 @@
+export $(cat /changan/docker/changan.env | grep -v '^#')
 cd /changan/docker/stacks/local
 docker-compose down
 docker stack rm admin
