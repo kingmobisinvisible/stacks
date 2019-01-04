@@ -1,10 +1,15 @@
 version: '3'
+networks:
+    kingmobnet:
+        external: true
 services:
     mariadb:
         env_file:
             - '/changan/docker/changan.env'
         image: linuxserver/mariadb
         user: root
+        networks:
+            - kingmobnet
         ports:
             - '3306:3306'
         volumes:
@@ -17,6 +22,8 @@ services:
             - '/changan/docker/changan.env'
         image: phpmyadmin/phpmyadmin
         user: root
+        networks:
+            - kingmobnet
         ports:
             - '9350:80'
         environment:

@@ -1,9 +1,14 @@
 version: '3'
+networks:
+    kingmobnet:
+        external: true
 services:
     portainer:
         env_file:
             - '/changan/docker/changan.env'
         image: portainer/portainer
+        networks:
+            - kingmobnet
         ports:
             - '9300:9000'
         volumes:
@@ -16,6 +21,8 @@ services:
             - '/changan/docker/changan.env'
         image: lsiocommunity/organizr
         user: root
+        networks:
+            - kingmobnet
         ports:
             - '9301:80'
         volumes:
@@ -27,6 +34,8 @@ services:
             - '/changan/docker/changan.env'
         image: lsiocommunity/organizr
         user: root
+        networks:
+            - kingmobnet
         ports:
             - '9302:80'
         volumes:
@@ -38,6 +47,8 @@ services:
             - '/changan/docker/changan.env'
         image: lsiocommunity/organizr
         user: root
+        networks:
+            - kingmobnet
         ports:
             - '9303:80'
         volumes:
@@ -49,6 +60,8 @@ services:
             - '/changan/docker/changan.env'
         image: lsiocommunity/organizr
         user: root
+        networks:
+            - kingmobnet
         ports:
             - '9304:80'
         volumes:
@@ -60,6 +73,8 @@ services:
             - '/changan/docker/changan.env'
         image: lsiocommunity/organizr
         user: root
+        networks:
+            - kingmobnet
         ports:
             - '9305:80'
         volumes:
@@ -70,6 +85,8 @@ services:
         env_file:
             - '/changan/docker/changan.env'
         image: v2tec/watchtower
+        networks:
+            - kingmobnet
         volumes:
             - '/var/run/docker.sock:/var/run/docker.sock'
         environment:

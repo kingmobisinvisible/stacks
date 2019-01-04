@@ -1,4 +1,7 @@
 version: '3'
+networks:
+    kingmobnet:
+        external: true
 services:
 # MEDIA AUTOMATION
     sonarr:
@@ -6,6 +9,8 @@ services:
             - '/changan/docker/changan.env'
         image: linuxserver/sonarr
         user: root
+        networks:
+            - kingmobnet
         ports:
             - '9310:8989'
         volumes:
@@ -20,6 +25,8 @@ services:
             - '/changan/docker/changan.env'
         image: linuxserver/radarr
         user: root
+        networks:
+            - kingmobnet
         ports:
             - '9311:7878'
         volumes:
@@ -34,6 +41,8 @@ services:
             - '/changan/docker/changan.env'
         image: linuxserver/lidarr
         user: root
+        networks:
+            - kingmobnet
         ports:
             - '9312:8686'
         volumes:
@@ -48,6 +57,8 @@ services:
             - '/changan/docker/changan.env'
         image: linuxserver/lazylibrarian
         user: root
+        networks:
+            - kingmobnet
         ports:
             - '9313:5299'
         volumes:
@@ -64,6 +75,8 @@ services:
             - '/changan/docker/changan.env'
         image: linuxserver/nzbget
         user: root
+        networks:
+            - kingmobnet
         ports:
             - '9320:6789'
         volumes:
@@ -78,6 +91,8 @@ services:
             - '/changan/docker/changan.env'
         image: linuxserver/hydra2
         user: root
+        networks:
+            - kingmobnet
         ports:
             - '9330:5076'
         volumes:
@@ -90,6 +105,8 @@ services:
             - '/changan/docker/changan.env'
         image: linuxserver/jackett
         user: root
+        networks:
+            - kingmobnet
         ports:
             - '9331:9117'
         volumes:
@@ -102,6 +119,8 @@ services:
             - '/changan/docker/changan.env'
         image: linuxserver/jackett
         user: root
+        networks:
+            - kingmobnet
         ports:
             - '9332:9117'
         volumes:
