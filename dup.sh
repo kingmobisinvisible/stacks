@@ -1,3 +1,4 @@
+export $(cat /changan/docker/changan.env | grep -v '^#')
 docker stack rm admin
 docker stack rm content
 docker stack rm db
@@ -7,7 +8,7 @@ docker stack rm monitoring
 cd /changan/docker/stacks/local
 docker-compose down
 systemctl restart docker
-export $(cat /changan/docker/changan.env | grep -v '^#')
+docker system prune
 cd /changan/docker/stacks/admin
 docker stack deploy --compose-file docker-compose.yml admin
 cd /changan/docker/stacks/content

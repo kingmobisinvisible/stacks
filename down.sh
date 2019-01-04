@@ -6,3 +6,4 @@ docker stack rm content
 docker stack rm download
 docker stack rm frontend
 docker stack rm monitoring
+docker system prune

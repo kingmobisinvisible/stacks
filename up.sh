@@ -1,4 +1,5 @@
 export $(cat /changan/docker/changan.env | grep -v '^#')
+docker system prune
 cd /changan/docker/stacks/admin
 docker stack deploy --compose-file docker-compose.yml admin
 cd /changan/docker/stacks/content

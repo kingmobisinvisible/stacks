@@ -5,6 +5,7 @@ mount -t cifs "//192.168.1.110/docker" -o username=kingmob,password=Reznor6^^,do
 mount -t cifs "//192.168.1.110/media" -o username=kingmob,password=Reznor6^^,domain=WORKGROUP,\vers=3\.0 /mnt/media
 mount -t cifs "//192.168.1.110/changanb" -o username=kingmob,password=Reznor6^^,domain=WORKGROUP,\vers=3\.0 /mnt/changanb
 systemctl restart docker
+docker system prune
 export $(cat /changan/docker/changan.env | grep -v '^#')
 cd /changan/docker/stacks/admin
 docker stack deploy --compose-file docker-compose.yml admin
