@@ -1,29 +1,37 @@
 version: '3'
+networks:
+    kingmobnet:
+        external: true
 services:
     ddclient:
         env_file:
             - '/changan/docker/changan.env'
         image: linuxserver/ddclient
         user: root
+        networks:
+            - kingmobnet
         volumes:
             - '${CONFIG}/ddclient/:/config'
         environment:
             TZ: ${TZ}
-    nginx-proxy:
-        env_file:
-            - '/changan/docker/changan.env'
-        image: jwilder/nginx-proxy
+    reverse-proxy:
+        image: traefik # The official Traefik docker image
+        command: --api --docker # Enables the web UI and tells Traefik to listen to docker
         ports:
-            - "80:80"
+            - "80:80"     # The HTTP port
+            - "8080:8080" # The Web UI (enabled by --api)
+            - "443:443"
+        networks:
+            - kingmobnet
         volumes:
-            - /var/run/docker.sock:/tmp/docker.sock:ro
-        environment:
-            TZ: ${TZ}
+            - /var/run/docker.sock:/var/run/docker.sock # So that Traefik can listen to the Docker events
     heimdall:
         env_file:
             - '/changan/docker/changan.env'
         image: linuxserver/heimdall
         user: root
+        networks:
+            - kingmobnet
         ports:
             - '81:80'
             - '444:443'
@@ -31,13 +39,15 @@ services:
             - '${CONFIG}/heimdall/:/config'
         environment:
             TZ: ${TZ}
-            VIRTUAL_HOST: WWW.${DOMAIN}
-            VIRTUAL_PORT: 81
+        labels:
+            - "traefik.frontend.rule=Host:heimdall.changan.local"
     wordpress:
         env_file:
             - '/changan/docker/changan.env'
         image: wordpress
         user: root
+        networks:
+            - kingmobnet
         ports:
             - '9344:80'
         environment:
