@@ -31,5 +31,6 @@ services:
             - '9777:9777/udp'
         volumes:
             - '${CONFIG}/kodi/:/config/.kodi'
+            - '${MEDIA}/:/media'
         environment:
             TZ: ${TZ}
