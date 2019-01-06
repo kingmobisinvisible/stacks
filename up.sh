@@ -1,16 +1,16 @@
 export $(cat /changan/docker/changan.env | grep -v '^#')
 docker system prune
 cd /changan/docker/stacks/admin
-docker stack deploy --compose-file docker-compose.yml admin
+docker-compose up -d
 cd /changan/docker/stacks/content
-docker stack deploy --compose-file docker-compose.yml content
+docker-compose up -d
 cd /changan/docker/stacks/db
-docker stack deploy --compose-file docker-compose.yml db
+docker-compose up -d
 cd /changan/docker/stacks/download
-docker stack deploy --compose-file docker-compose.yml download
+docker-compose up -d
 cd /changan/docker/stacks/frontend
-docker stack deploy --compose-file docker-compose.yml frontend
+docker-compose up -d
 cd /changan/docker/stacks/monitoring
-docker stack deploy --compose-file docker-compose.yml monitoring
+docker-compose up -d
 cd /changan/docker/stacks/local
 docker-compose up -d
